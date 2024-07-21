@@ -1,16 +1,19 @@
 from display import *
 from geometry import *
 from maze import Maze
+import random
 
 def main():
         win = Display(800,600) 
-        testDraw(win)
+        draw(win)
         win.waitForClose()
 
 
 
-def testDraw(win):    ##test lines draw
-        maze = Maze(45,35,12,16,45,45,642642) ##draws a grid using cells
+def draw(win):    ##test lines draw
+        seed = random.randint(1,999999)
+        print(seed)
+        maze = Maze(45,35,12,16,45,45,826560) ##draws a grid using cells
         maze.breakWallsR()
         maze.drawCells(win)
         maze.resetCellsVisited()
