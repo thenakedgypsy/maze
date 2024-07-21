@@ -9,8 +9,10 @@ def main():
 
 
 def testDraw(win):    ##test lines draw
-        cell = Cell(Point(350,100),Point(380, 131))
+        cell = Cell(Point(150,100),Point(180, 131),hasRightWall=False)
         cell.draw(win.canvas)
-
-
+        cell2 = Cell(Point(450,100),Point(480, 131),hasLeftWall=False)
+        cell2.draw(win.canvas)
+        cell.drawMove(win.canvas,cell2)
+        
 main()
