@@ -5,7 +5,7 @@ class Display(): #general display stuffs
     def __init__(self, width, height):   ##set up the display
         self.__root = Tk()
         self.__root.title("Maze")
-        self.canvas = Canvas(self.__root,width=width, height=height)
+        self.canvas = Canvas(self.__root,width=width, height=height,bg="black")
         self.canvas.pack()
         self.__running = False
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
