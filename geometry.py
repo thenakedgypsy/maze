@@ -45,7 +45,7 @@ class Cell():       #maze corners/boxes
 
 
     def drawMove(self,win,toCell,undo=False,):
-        fillColor = "blue"
+        fillColor = "green4"
         if undo:
             fillColor = "red"
         line = Line(self.getCenter(),toCell.getCenter())
