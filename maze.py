@@ -80,10 +80,57 @@ class Maze():
             self.cells[nextCol][nextRow].walls[nextWall] = False        ##break wall on next
             
             self.breakWallsR(nextCol,nextRow)      ##call recursively on next cell
+        
 
     def resetCellsVisited(self):
          for col in self.cells:
               for cell in col:
                    cell.resetVisited()
+
+    def solve(self,win):
+         self._solve_r(0,0,win)
+    
+    def _solve_r(self,col,row,win):
+        print("in solve")
+        self.__animate(win)
+        currentCell = self.cells[col][row]
+        currentCell.visited = True
+        #check at end
+        if currentCell == self.cells[-1][-1]:
+             return True
+        #check upwards
+        if row -1 >= 0 and self.cells[col][row - 1].visited == False and currentCell.walls["top"] == False:
+            currentCell.drawMove(win,self.cells[col][row-1])
+            print("DRAWING")
+            if self._solve_r(col,row-1,win):
+                return True
+            else:
+                currentCell.drawMove(win,self.cells[col][row-1],True)        
+        #check downwards
+        if row +1 < len(self.cells[col]) and self.cells[col][row + 1].visited == False and currentCell.walls["bottom"] == False:
+            currentCell.drawMove(win,self.cells[col][row+1])
+            print("DRAWING")
+            if self._solve_r(col,row+1,win):
+                return True
+            else:
+                currentCell.drawMove(win,self.cells[col][row+1],True)
+        #check left
+        if col -1 >= 0 and self.cells[col-1][row].visited == False and currentCell.walls["left"] == False:
+            currentCell.drawMove(win,self.cells[col-1][row])
+            print("DRAWING")
+            if self._solve_r(col-1,row,win):
+                return True
+            else:
+                currentCell.drawMove(win,self.cells[col-1][row],True)    
+        #check right    
+        if col +1 < len(self.cells) and self.cells[col+1][row].visited == False and currentCell.walls["right"] == False:     
+            currentCell.drawMove(win,self.cells[col+1][row])
+            print("DRAWING")
+            if self._solve_r(col+1,row,win):
+                return True 
+            else:
+                currentCell.drawMove(win,self.cells[col+1][row],True)
+
+        return False
 
 

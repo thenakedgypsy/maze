@@ -13,6 +13,8 @@ def testDraw(win):    ##test lines draw
         maze = Maze(45,35,12,16,45,45,1337) ##draws a grid using cells
         maze.breakWallsR()
         maze.drawCells(win)
+        maze.resetCellsVisited()
+        maze.solve(win)
 
         
 main()

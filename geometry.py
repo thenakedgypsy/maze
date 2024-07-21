@@ -44,12 +44,12 @@ class Cell():       #maze corners/boxes
         return Point(centerX,centerY)
 
 
-    def drawMove(self,canvas,toCell,undo=False,):
-        fillColor = "red"
+    def drawMove(self,win,toCell,undo=False,):
+        fillColor = "blue"
         if undo:
-            fillColor = "grey"
+            fillColor = "red"
         line = Line(self.getCenter(),toCell.getCenter())
-        line.draw(canvas,fillColor)  
+        line.draw(win.canvas,fillColor)  
 
     def resetVisited(self):
         self.visited = False
