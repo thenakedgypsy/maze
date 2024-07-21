@@ -39,14 +39,26 @@ class Tests(unittest.TestCase):
         numCols = 10
         numRows = 10
         m1 = Maze(0, 0, numRows, numCols, 10, 10)
-        assert m1.cells[0][0].hasTopWall == False
+        assert m1.cells[0][0].walls["top"] == False
 
     def test_Maze_CreateCells_Exit(self):
         numCols = 10
         numRows = 99
         m1 = Maze(0, 0, numRows, numCols, 10, 10)
-        assert m1.cells[-1][-1].hasBottomWall == False
-    
+        assert m1.cells[-1][-1].walls["bottom"] == False
+
+    def test_Visited_Reset(self):
+        numCols = 10
+        numRows = 10
+        m1 = Maze(0, 0, numRows, numCols, 10, 10)
+        m1.breakWallsR()
+        m1.resetCellsVisited()
+        visited = False
+        for col in m1.cells:
+            for cell in col:
+                visited = cell.visited
+        assert visited == False
+                
 
 
 

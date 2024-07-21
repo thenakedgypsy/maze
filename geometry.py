@@ -16,10 +16,6 @@ class Line():  #for drawing out lines
 class Cell():       #maze corners/boxes
 
     def __init__(self,topLeft, bottomRight, hasLeftWall=True,hasTopWall=True,hasRightWall=True,hasBottomWall=True):
-    #   self.hasLeftWall = hasLeftWall
-    #   self.hasRightWall = hasRightWall
-    #   self.hasTopWall = hasTopWall
-    #   self.hasBottomWall = hasBottomWall
         self.walls = {"left": hasLeftWall, "right": hasRightWall, "top": hasTopWall, "bottom": hasBottomWall}
         self.__topLeft = topLeft
         self.__bottomRight = bottomRight
@@ -55,4 +51,5 @@ class Cell():       #maze corners/boxes
         line = Line(self.getCenter(),toCell.getCenter())
         line.draw(canvas,fillColor)  
 
-
+    def resetVisited(self):
+        self.visited = False

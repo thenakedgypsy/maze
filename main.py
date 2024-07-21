@@ -11,7 +11,8 @@ def main():
 
 def testDraw(win):    ##test lines draw
         maze = Maze(45,35,12,16,45,45,1337) ##draws a grid using cells
-        maze.breakWallsR(0,0,win)
+        maze.breakWallsR()
         maze.drawCells(win)
+
         
 main()

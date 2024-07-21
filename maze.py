@@ -50,14 +50,14 @@ class Maze():
         
 
     def __animate(self,win):
-        win.canvas.after(25,win.redraw())
+        win.canvas.after(50,win.redraw())
 
     def __breakEntranceAndExit(self):
         self.cells[0][0].walls["top"] = False
         self.cells[-1][-1].walls["bottom"] = False
 
     
-    def breakWallsR(self,col,row,win):
+    def breakWallsR(self,col=0,row=0):
         self.cells[col][row].visited = True #this cell is now marked as visited
             
         while True:     #until all cells around this one are visited
@@ -79,9 +79,11 @@ class Maze():
             self.cells[col][row].walls[wallBreak] = False           ##break wall on current
             self.cells[nextCol][nextRow].walls[nextWall] = False        ##break wall on next
             
-            self.breakWallsR(nextCol,nextRow,win)      ##call recursively on next cell
+            self.breakWallsR(nextCol,nextRow)      ##call recursively on next cell
 
-        
-        
+    def resetCellsVisited(self):
+         for col in self.cells:
+              for cell in col:
+                   cell.resetVisited()
 
 
