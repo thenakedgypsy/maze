@@ -13,9 +13,8 @@ class Maze():
         self.__cellSizeY = cellSizeY
         self.cells = []
         if seed is not None:
-            self.seed = random.seed(seed)
-        else:
-            self.seed = 0
+            random.seed(seed)
+
         self.__createCells()
 
 
@@ -51,7 +50,7 @@ class Maze():
         
 
     def __animate(self,win):
-        win.canvas.after(50,win.redraw())
+        win.canvas.after(25,win.redraw())
 
     def __breakEntranceAndExit(self):
         self.cells[0][0].walls["top"] = False
@@ -59,23 +58,22 @@ class Maze():
 
     
     def breakWallsR(self,col,row,win):
-        self.cells[col][row].visited = True
+        self.cells[col][row].visited = True #this cell is now marked as visited
             
-        while True:    
-            toVisit = []
-            if row -1 >= 0 and self.cells[col][row - 1].visited == False:
-                   toVisit.append((col,row-1,"top","bottom"))     ##col and row of next cell, wall to be broken in current, wall to be broken in next
-            if row +1 < len(self.cells[col]) and self.cells[col][row + 1].visited == False:
-                   toVisit.append((col,row+1,"bottom","top"))
-            if col -1 >= 0 and self.cells[col-1][row].visited == False:
-                   toVisit.append((col-1,row,"left","right"))
-            if col +1 < len(self.cells) and self.cells[col+1][row].visited == False:
-                   toVisit.append((col+1,row,"right","left"))
-            if not toVisit:
-               #self.cells[col][row].draw(win.canvas)
+        while True:     #until all cells around this one are visited
+            toVisit = []    ##will contain potential directions as: col, row, wall to remove on current cell, wall to remove on next cell
+            if row -1 >= 0 and self.cells[col][row - 1].visited == False:   #checks up
+                   toVisit.append((col,row-1,"top","bottom"))             #if unvisited adds to potential directions
+            if row +1 < len(self.cells[col]) and self.cells[col][row + 1].visited == False: #checks down
+                   toVisit.append((col,row+1,"bottom","top"))           #if unvisited adds to potential directions
+            if col -1 >= 0 and self.cells[col-1][row].visited == False:     #checks left
+                   toVisit.append((col-1,row,"left","right"))               #if unvisited adds to potential directions
+            if col +1 < len(self.cells) and self.cells[col+1][row].visited == False: #checks right
+                   toVisit.append((col+1,row,"right","left"))               #if unvisited adds to potential directions
+            if not toVisit: #all surrounding cells visisted, end recursion
                return 
            
-            nextCell = random.choice(toVisit)                       ##randomise which one
+            nextCell = random.choice(toVisit)                       ##randomise which direction
             nextCol, nextRow, wallBreak, nextWall = nextCell        ##set some variables for clarity
 
             self.cells[col][row].walls[wallBreak] = False           ##break wall on current
