@@ -16,27 +16,29 @@ class Line():  #for drawing out lines
 class Cell():       #maze corners/boxes
 
     def __init__(self,topLeft, bottomRight, hasLeftWall=True,hasTopWall=True,hasRightWall=True,hasBottomWall=True):
-        self.hasLeftWall = hasLeftWall
-        self.hasRightWall = hasRightWall
-        self.hasTopWall = hasTopWall
-        self.hasBottomWall = hasBottomWall
+    #   self.hasLeftWall = hasLeftWall
+    #   self.hasRightWall = hasRightWall
+    #   self.hasTopWall = hasTopWall
+    #   self.hasBottomWall = hasBottomWall
+        self.walls = {"left": hasLeftWall, "right": hasRightWall, "top": hasTopWall, "bottom": hasBottomWall}
         self.__topLeft = topLeft
         self.__bottomRight = bottomRight
+        self.visited = False
 
 
     def draw(self,canvas):
         bottomLeft = Point(self.__topLeft.x,self.__bottomRight.y)
         topRight = Point(self.__bottomRight.x,self.__topLeft.y)
-        if self.hasLeftWall:
+        if self.walls["left"]:
             line = Line(bottomLeft,self.__topLeft)
             line.draw(canvas)
-        if self.hasTopWall:
+        if self.walls["top"]:
             line = Line(topRight,self.__topLeft)
             line.draw(canvas)
-        if self.hasRightWall:
+        if self.walls["right"]:
             line = Line(topRight,self.__bottomRight)
             line.draw(canvas)
-        if self.hasBottomWall:
+        if self.walls["bottom"]:
             line = Line(bottomLeft,self.__bottomRight)
             line.draw(canvas)
 
@@ -51,4 +53,6 @@ class Cell():       #maze corners/boxes
         if undo:
             fillColor = "grey"
         line = Line(self.getCenter(),toCell.getCenter())
-        line.draw(canvas,fillColor)            
+        line.draw(canvas,fillColor)  
+
+

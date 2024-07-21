@@ -1,5 +1,5 @@
 from geometry import *
-from random import *
+import random
 
 
 class Maze():
@@ -12,7 +12,7 @@ class Maze():
         self.__cellSizeX = cellSizeX
         self.__cellSizeY = cellSizeY
         self.cells = []
-        if self.seed is not None:
+        if seed is not None:
             self.seed = random.seed(seed)
         else:
             self.seed = 0
@@ -54,5 +54,36 @@ class Maze():
         win.canvas.after(50,win.redraw())
 
     def __breakEntranceAndExit(self):
-        self.cells[0][0].hasTopWall = False
-        self.cells[-1][-1].hasBottomWall = False
+        self.cells[0][0].walls["top"] = False
+        self.cells[-1][-1].walls["bottom"] = False
+
+    
+    def breakWallsR(self,col,row,win):
+        self.cells[col][row].visited = True
+            
+        while True:    
+            toVisit = []
+            if row -1 >= 0 and self.cells[col][row - 1].visited == False:
+                   toVisit.append((col,row-1,"top","bottom"))     ##col and row of next cell, wall to be broken in current, wall to be broken in next
+            if row +1 < len(self.cells[col]) and self.cells[col][row + 1].visited == False:
+                   toVisit.append((col,row+1,"bottom","top"))
+            if col -1 >= 0 and self.cells[col-1][row].visited == False:
+                   toVisit.append((col-1,row,"left","right"))
+            if col +1 < len(self.cells) and self.cells[col+1][row].visited == False:
+                   toVisit.append((col+1,row,"right","left"))
+            if not toVisit:
+               #self.cells[col][row].draw(win.canvas)
+               return 
+           
+            nextCell = random.choice(toVisit)                       ##randomise which one
+            nextCol, nextRow, wallBreak, nextWall = nextCell        ##set some variables for clarity
+
+            self.cells[col][row].walls[wallBreak] = False           ##break wall on current
+            self.cells[nextCol][nextRow].walls[nextWall] = False        ##break wall on next
+            
+            self.breakWallsR(nextCol,nextRow,win)      ##call recursively on next cell
+
+        
+        
+
+
