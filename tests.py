@@ -35,6 +35,19 @@ class Tests(unittest.TestCase):
         with self.assertRaises(Exception):
             m1 = Maze(0, 0, numRows, numCols, 10, 10)
 
+    def test_Maze_CreateCells_Entrance(self):
+        numCols = 10
+        numRows = 10
+        m1 = Maze(0, 0, numRows, numCols, 10, 10)
+        assert m1.cells[0][0].hasTopWall == False
+
+    def test_Maze_CreateCells_Exit(self):
+        numCols = 10
+        numRows = 99
+        m1 = Maze(0, 0, numRows, numCols, 10, 10)
+        assert m1.cells[-1][-1].hasBottomWall == False
+    
+
 
 
 if __name__ == "__main__":

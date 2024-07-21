@@ -10,7 +10,7 @@ def main():
 
 
 def testDraw(win):    ##test lines draw
-        maze = Maze(35,35,12,16,45,45) ##draws a grid using cells
+        maze = Maze(45,35,12,16,45,45) ##draws a grid using cells
         maze.drawCells(win)
         
 main()
